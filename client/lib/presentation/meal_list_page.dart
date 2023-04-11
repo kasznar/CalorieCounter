@@ -1,15 +1,15 @@
 import 'package:client/client.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:openapi/api.dart';
 
-class MealPage extends StatefulWidget {
-  const MealPage({Key? key}) : super(key: key);
+class MealListPage extends StatefulWidget {
+  const MealListPage({Key? key}) : super(key: key);
 
   @override
-  _MealPageState createState() => _MealPageState();
+  State<MealListPage> createState() => _MealListPageState();
 }
 
-class _MealPageState extends State<MealPage> {
+class _MealListPageState extends State<MealListPage> {
   List<MealDto> _meals = [];
 
   void getMeals() async {
@@ -28,9 +28,11 @@ class _MealPageState extends State<MealPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: ListView(
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text('Ingredients'),
+      ),
+      child: ListView(
         children: [..._meals.map((meal) => MealItem(meal))],
       ),
     );
@@ -44,8 +46,9 @@ class MealItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Row(children: [Text(meal.recepieName), Text(meal.quantity.toString())],),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [Text(meal.recepieName), Text(meal.quantity.toString())],
     );
   }
 }
